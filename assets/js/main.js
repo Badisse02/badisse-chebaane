@@ -355,6 +355,89 @@ function updateAboutStats() {
   });
 }
 
+/* ═══════════════════════════════════════════════════════════
+   CONTACT FORM — envoi via fetch + toast notification
+   ═══════════════════════════════════════════════════════════ */
+
+const contactForm = document.getElementById('contactForm');
+const submitBtn   = document.getElementById('submitBtn');
+const formToast   = document.getElementById('formToast');
+const toastClose  = document.getElementById('toastClose');
+const toastTitle  = document.getElementById('toastTitle');
+const toastMsg    = document.getElementById('toastMessage');
+const toastIcon   = formToast?.querySelector('.toast-icon i');
+
+let toastTimer = null;
+
+function showToast(type, title, message) {
+  if (!formToast) return;
+
+  // Reset classes
+  formToast.classList.remove('show', 'toast-success', 'toast-error');
+  formToast.classList.add(`toast-${type}`);
+
+  // Update content
+  toastTitle.textContent = title;
+  toastMsg.textContent   = message;
+  toastIcon.className    = type === 'success'
+    ? 'fa-solid fa-check'
+    : 'fa-solid fa-triangle-exclamation';
+
+  // Reset progress bar animation
+  const progress = formToast.querySelector('.toast-progress');
+  if (progress) {
+    progress.style.animation = 'none';
+    progress.offsetHeight; // force reflow
+    progress.style.animation = '';
+  }
+
+  // Show
+  requestAnimationFrame(() => formToast.classList.add('show'));
+
+  // Auto-hide after 4s
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => formToast.classList.remove('show'), 4200);
+}
+
+function hideToast() {
+  formToast?.classList.remove('show');
+  clearTimeout(toastTimer);
+}
+
+toastClose?.addEventListener('click', hideToast);
+
+contactForm?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  // Switch button to sending state
+  const originalHTML = submitBtn.innerHTML;
+  submitBtn.innerHTML = 'Envoi en cours… <i class="fa-solid fa-spinner"></i>';
+  submitBtn.classList.add('btn-sending');
+
+  try {
+    const formData = new FormData(contactForm);
+
+    const response = await fetch(contactForm.action, {
+      method: 'POST',
+      body: formData,
+      headers: { 'Accept': 'application/json' },
+    });
+
+    if (response.ok) {
+      showToast('success', 'Message envoyé !', 'Merci, je vous répondrai dans les plus brefs délais.');
+      contactForm.reset();
+    } else {
+      showToast('error', 'Erreur d\'envoi', 'Veuillez réessayer ou m\'envoyer un email directement.');
+    }
+  } catch {
+    showToast('error', 'Erreur réseau', 'Vérifiez votre connexion et réessayez.');
+  } finally {
+    // Restore button
+    submitBtn.innerHTML = originalHTML;
+    submitBtn.classList.remove('btn-sending');
+  }
+});
+
 /* ─── INITIALISATION ────────────────────────────────────── */
 // 1. Génère les cartes depuis portfolio-data.js
 renderProjects();
