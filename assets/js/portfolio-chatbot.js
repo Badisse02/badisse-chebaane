@@ -15,8 +15,9 @@
 
   // ── CONFIGURATION ────────────────────────────────────────────
   const CONFIG = {
+    // ✅ Cloudflare Worker — proxy sécurisé vers Gemini (clé cachée côté serveur)
+    // Remplace l'URL ci-dessous par l'URL exacte de TON Worker Cloudflare
     apiUrl: "https://badisse-chebaane.chebaane-badisse.workers.dev",
-    model: "claude-sonnet-4-6",
     maxTokens: 1024,
     accentColor: "#6366f1",        // couleur principale (violet/indigo)
     accentHover: "#4f46e5",
@@ -454,7 +455,7 @@ ${faq}`;
         </button>
       </div>
 
-      <div id="pcb-footer">Powered by ${name}</div>
+      <div id="pcb-footer">Powered by Claude AI · Les infos viennent directement de ${name}</div>
     `;
 
     document.body.appendChild(bubble);
@@ -544,11 +545,15 @@ ${faq}`;
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          model: CONFIG.model,
-          max_tokens: CONFIG.maxTokens,
           system: buildSystemPrompt(),
-          tools: [{ type: "web_search_20250305", name: "web_search" }],
-          messages: conversationHistory,
+          messages: conversationHistory.map((m) => ({
+            role: m.role,
+            content: typeof m.content === "string"
+              ? m.content
+              : (Array.isArray(m.content)
+                  ? m.content.filter((b) => b.type === "text").map((b) => b.text).join("\n")
+                  : String(m.content)),
+          })),
         }),
       });
 
@@ -567,7 +572,7 @@ ${faq}`;
 
       removeTypingIndicator();
       addMessage("assistant", assistantText);
-      conversationHistory.push({ role: "assistant", content: data.content });
+      conversationHistory.push({ role: "assistant", content: assistantText });
 
     } catch (err) {
       removeTypingIndicator();

@@ -1,0 +1,12 @@
+name = "badisse-chebaane"
+main = "worker/index.js"
+compatibility_date = "2024-01-01"
+
+# La clé Gemini est définie dans :
+# Cloudflare Dashboard → Workers & Pages → badisse-chebaane
+#                      → Settings → Variables and Secrets
+# Nom    : GEMINI_API_KEY
+# Valeur : ta clé Google AI Studio
+# Type   : Secret (chiffré)
+#
+# ⚠️ Ne JAMAIS mettre la clé ici directement — ce fichier est dans Git
