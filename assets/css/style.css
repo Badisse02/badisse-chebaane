@@ -1104,6 +1104,122 @@ button {
   text-decoration: underline;
 }
 
+/* ===================== Toast Notification ===================== */
+.toast {
+  position: fixed;
+  top: 90px;
+  right: 28px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 24px;
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: 0 20px 50px -14px rgba(0, 0, 0, .45);
+  backdrop-filter: blur(16px);
+  z-index: 3000;
+  transform: translateX(calc(100% + 40px));
+  opacity: 0;
+  transition: transform .45s cubic-bezier(.22, 1, .36, 1), opacity .35s ease;
+  max-width: 420px;
+  pointer-events: none;
+}
+
+.toast.show {
+  transform: translateX(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.toast-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.toast.toast-success .toast-icon {
+  background: linear-gradient(135deg, #14b8a6 0%, #10b981 100%);
+  color: #fff;
+  box-shadow: 0 6px 18px -6px rgba(20, 184, 166, .55);
+}
+
+.toast.toast-error .toast-icon {
+  background: linear-gradient(135deg, #ef4444 0%, #f97316 100%);
+  color: #fff;
+  box-shadow: 0 6px 18px -6px rgba(239, 68, 68, .55);
+}
+
+.toast-body strong {
+  display: block;
+  font-size: .95rem;
+  margin-bottom: 2px;
+}
+
+.toast-body span {
+  color: var(--text-muted);
+  font-size: .85rem;
+}
+
+.toast-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .75rem;
+  color: var(--text-faint);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  transition: all .2s ease;
+  cursor: pointer;
+}
+
+.toast-close:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: transparent;
+}
+
+/* Progress bar on toast */
+.toast-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  background: var(--gradient);
+  animation: toast-shrink 4s linear forwards;
+}
+
+@keyframes toast-shrink {
+  from { width: 100%; }
+  to { width: 0%; }
+}
+
+/* Sending state for submit button */
+.btn-sending {
+  pointer-events: none;
+  opacity: .7;
+}
+
+.btn-sending i {
+  animation: spin .8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
 /* ===================== Footer ===================== */
 .footer {
   border-top: 1px solid var(--border);

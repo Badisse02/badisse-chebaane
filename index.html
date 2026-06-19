@@ -339,16 +339,19 @@
 
           <form class="contact-form" id="contactForm" action="https://formsubmit.co/Chebaane.badisse@gmail.com"
             method="POST">
+            <!-- FormSubmit config: disable captcha, redirect to correct URL, nice email format -->
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_next" value="https://badisse02.github.io/badisse-chebaane/">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_subject" value="Nouveau message depuis le portfolio !">
             <div class="form-row">
               <input type="text" name="name" placeholder="Votre nom" required />
               <input type="email" name="email" placeholder="Votre email" required />
             </div>
             <input type="text" name="subject" placeholder="Sujet" required />
             <textarea name="message" rows="5" placeholder="Votre message" required></textarea>
-            <button type="submit" class="btn btn-primary full-width">Envoyer le message <i
+            <button type="submit" class="btn btn-primary full-width" id="submitBtn">Envoyer le message <i
                 class="fa-solid fa-paper-plane"></i></button>
-            <p class="form-note">* Configure ce formulaire avec <a href="https://formsubmit.co" target="_blank"
-                rel="noopener">FormSubmit</a> ou ton service préféré — voir README.</p>
           </form>
         </div>
       </div>
@@ -380,6 +383,18 @@
   </div>
 
   <button class="back-to-top" id="backToTop" aria-label="Retour en haut"><i class="fa-solid fa-arrow-up"></i></button>
+
+  <!-- ===== TOAST NOTIFICATION ===== -->
+  <div class="toast" id="formToast" role="alert" aria-live="polite">
+    <div class="toast-icon"><i class="fa-solid fa-check"></i></div>
+    <div class="toast-body">
+      <strong id="toastTitle">Message envoyé !</strong>
+      <span id="toastMessage">Merci, je vous répondrai rapidement.</span>
+    </div>
+    <button class="toast-close" id="toastClose" aria-label="Fermer"><i class="fa-solid fa-xmark"></i></button>
+    <div class="toast-progress"></div>
+  </div>
+
   <script src="assets/js/main.js"></script>
 </body>
 
