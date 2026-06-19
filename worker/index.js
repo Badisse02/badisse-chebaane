@@ -1,13 +1,11 @@
 /**
  * ============================================================
  *  CLOUDFLARE WORKER — Portfolio Chatbot de Badisse Chebaane
- *  Utilise l'API Google Gemini (gratuite jusqu'à un certain quota)
+ *  Utilise l'API Groq (gratuite, ultra rapide)
  *
  *  SETUP :
- *  1. Dans ton Worker Cloudflare → Settings → Variables and Secrets
- *     Ajoute : GEMINI_API_KEY = ta clé "my-key" (coche Encrypt)
- *  2. Colle ce fichier dans l'éditeur du Worker
- *  3. Save and Deploy
+ *  Dans Cloudflare → ton Worker → Settings → Variables and Secrets
+ *  Ajoute : GROQ_API_KEY = ta clé Groq (commence par gsk_...)
  * ============================================================
  */
 
@@ -21,7 +19,6 @@ const CORS_HEADERS = {
 export default {
   async fetch(request, env) {
 
-    // Preflight CORS
     if (request.method === "OPTIONS") {
       return new Response(null, { headers: CORS_HEADERS });
     }
@@ -44,79 +41,68 @@ export default {
         });
       }
 
-      const apiKey = env.GEMINI_API_KEY;
+      const apiKey = env.GROQ_API_KEY;
       if (!apiKey) {
-        return new Response(JSON.stringify({ error: "GEMINI_API_KEY not configured" }), {
+        return new Response(JSON.stringify({ error: "GROQ_API_KEY not configured" }), {
           status: 500,
           headers: CORS_HEADERS,
         });
       }
 
-      // ── Conversion du format Anthropic → Gemini ─────────────
-      // Le chatbot envoie { role: "user"/"assistant", content: "..." }
-      // Gemini attend { role: "user"/"model", parts: [{ text: "..." }] }
+      // Groq est compatible OpenAI — format simple
+      const groqMessages = [];
 
-      const geminiContents = messages.map((msg) => ({
-        role: msg.role === "assistant" ? "model" : "user",
-        parts: [{ text: typeof msg.content === "string"
-          ? msg.content
-          : (msg.content[0]?.text || "") }],
-      }));
+      // System prompt en premier
+      if (system) {
+        groqMessages.push({ role: "system", content: system });
+      }
 
-      // System prompt → injecté comme premier message "user" suivi d'un "model" ack
-      // (Gemini n'a pas de systemInstruction dans gemini-1.5-flash via REST simple)
-      const fullContents = system
-        ? [
-            { role: "user",  parts: [{ text: `[SYSTEM INSTRUCTIONS]\n${system}\n[END SYSTEM]\n\nCompris, je vais suivre ces instructions.` }] },
-            { role: "model", parts: [{ text: "Compris, je suis prêt à répondre en tant qu'assistant portfolio de Badisse Chebaane." }] },
-            ...geminiContents,
-          ]
-        : geminiContents;
+      // Historique de conversation
+      for (const msg of messages) {
+        groqMessages.push({
+          role: msg.role,
+          content: typeof msg.content === "string"
+            ? msg.content
+            : (Array.isArray(msg.content)
+                ? msg.content.filter(b => b.type === "text").map(b => b.text).join("\n")
+                : String(msg.content)),
+        });
+      }
 
-      // ── Appel Gemini ─────────────────────────────────────────
-      const geminiResponse = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            contents: fullContents,
-            generationConfig: {
-              temperature: 0.7,
-              maxOutputTokens: 1024,
-              topP: 0.9,
-            },
-            safetySettings: [
-              { category: "HARM_CATEGORY_HARASSMENT",        threshold: "BLOCK_ONLY_HIGH" },
-              { category: "HARM_CATEGORY_HATE_SPEECH",       threshold: "BLOCK_ONLY_HIGH" },
-              { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_ONLY_HIGH" },
-              { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_ONLY_HIGH" },
-            ],
-          }),
-        }
-      );
+      // Appel Groq
+      const groqResponse = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify({
+          model: "llama-3.3-70b-versatile",
+          messages: groqMessages,
+          max_tokens: 1024,
+          temperature: 0.7,
+        }),
+      });
 
-      if (!geminiResponse.ok) {
-        const errText = await geminiResponse.text();
-        console.error("Gemini API error:", errText);
+      if (!groqResponse.ok) {
+        const errText = await groqResponse.text();
+        console.error("Groq API error:", errText);
         return new Response(
-          JSON.stringify({ error: `Gemini API error ${geminiResponse.status}`, detail: errText }),
+          JSON.stringify({ error: `Groq API error ${groqResponse.status}`, detail: errText }),
           { status: 502, headers: CORS_HEADERS }
         );
       }
 
-      const geminiData = await geminiResponse.json();
+      const groqData = await groqResponse.json();
 
-      // ── Extraction du texte ──────────────────────────────────
+      // Extraction du texte
       const text =
-        geminiData?.candidates?.[0]?.content?.parts?.[0]?.text ||
+        groqData?.choices?.[0]?.message?.content ||
         "Je n'ai pas pu générer une réponse. Veuillez réessayer.";
 
-      // ── Réponse au format attendu par le chatbot ─────────────
+      // Réponse au format attendu par le chatbot
       return new Response(
-        JSON.stringify({
-          content: [{ type: "text", text }],
-        }),
+        JSON.stringify({ content: [{ type: "text", text }] }),
         { headers: CORS_HEADERS }
       );
 
