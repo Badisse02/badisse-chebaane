@@ -174,7 +174,7 @@ window.PORTFOLIO_DATA = {
             meta: "Janv. 2026 – Mai 2026 · Esprit × Value",
             shortDesc: "Pipeline ML complet sur 10 000+ annonces tunisiennes : prédiction de prix, classification d'images, recherche sémantique FAISS + Sentence-BERT.",
             cardTags: ["XGBoost", "MobileNetV2", "FAISS", "FastAPI", "AWS"],
-            cover: "assets/images/projects/aradhi-cover.svg",
+            cover: "assets/images/aradhi-cover.svg",
 
             // — Modale (détails) —
             fullDesc:
@@ -193,16 +193,16 @@ window.PORTFOLIO_DATA = {
 
             // — Médias —
             // images: tableau de chemins locaux ou URLs
-            // ex: ["assets/images/projects/aradhi-1.jpg", "assets/images/projects/aradhi-2.jpg"]
+            // ex: ["assets/images/aradhi-1.jpg", "assets/images/aradhi-2.jpg"]
             images: [
-                // "assets/images/projects/aradhi-1.jpg",
-                // "assets/images/projects/aradhi-2.jpg",
-                // "assets/images/projects/aradhi-3.jpg",
+                "assets/images/aradhi_menu.png",
+
+                // "assets/images/aradhi-3.jpg",
             ],
             // video: URL YouTube/Vimeo OU chemin local .mp4
             // ex YouTube : "https://www.youtube.com/watch?v=XXXXXXXXX"
             // ex local   : "assets/videos/aradhi-demo.mp4"
-            video: null,
+            video: ["assets/video/aradhi_demo.mp4"],
 
             // — Liens —
             github: "https://github.com/syrineguemira72/Esprit-PIDS-4DS3-2026--ARADHI-",
@@ -223,7 +223,7 @@ window.PORTFOLIO_DATA = {
             meta: "2024 · AI Switch (France)",
             shortDesc: "Interface Streamlit unifiée pour switcher entre GPT-3, Mistral-7B, Llama-3 et RAG — développée pour la société française AI Switch.",
             cardTags: ["Streamlit", "GPT-3", "Mistral-7B", "Llama-3", "RAG"],
-            cover: "assets/images/projects/aiagent-cover.svg",
+            cover: "assets/images/aiagent-cover.svg",
 
             fullDesc:
                 "Mission professionnelle pour la société française AI Switch : développement de l'interface utilisateur " +
@@ -238,7 +238,7 @@ window.PORTFOLIO_DATA = {
             allTags: ["Python", "Streamlit", "GPT-3", "Mistral-7B", "Llama-3", "RAG", "LLM", "OpenAI API"],
 
             images: [
-                // "assets/images/projects/aiagent-1.jpg",
+                // "assets/images/aiagent-1.jpg",
             ],
             video: null,
 
@@ -259,7 +259,7 @@ window.PORTFOLIO_DATA = {
             meta: "Janv. 2025 – Mai 2025 · Esprit",
             shortDesc: "Application web Symfony 6 + client desktop JavaFX synchronisés : billetterie événementielle, paiement Stripe, auth JWT, mode offline.",
             cardTags: ["Symfony 6", "JavaFX", "Stripe", "REST API", "JWT"],
-            cover: "assets/images/projects/evart-cover.svg",
+            cover: "assets/images/evart-cover.svg",
 
             fullDesc:
                 "Système de billetterie culturelle (films, concerts, théâtre) dual-platform avec commande de produits artisanaux personnalisés. " +
@@ -274,8 +274,8 @@ window.PORTFOLIO_DATA = {
             allTags: ["Symfony 6", "PHP 8+", "Doctrine ORM", "Twig", "API Platform", "Stripe", "Bootstrap 5", "Java 17+", "JavaFX", "JDBC", "Gson", "Jackson", "PDFBox", "JWT", "MySQL"],
 
             images: [
-                // "assets/images/projects/evart-1.jpg",
-                // "assets/images/projects/evart-2.jpg",
+                // "assets/images/evart-1.jpg",
+                // "assets/images/evart-2.jpg",
             ],
             video: null,
 
@@ -296,7 +296,7 @@ window.PORTFOLIO_DATA = {
             meta: "Oct. – Déc. 2025 · Esprit (Académique)",
             shortDesc: "Application Flask avec deux parcours (patient/médecin), diagnostic par modèle MLP scikit-learn et chatbot conversationnel intégré.",
             cardTags: ["Flask", "Scikit-learn", "MLP", "Python", "Chatbot"],
-            cover: "assets/images/projects/placeholder-cover.svg",
+            cover: "assets/images/placeholder-cover.svg",
 
             fullDesc:
                 "Application web Flask proposant deux parcours distincts (patient et médecin) avec un diagnostic médical " +
@@ -311,7 +311,7 @@ window.PORTFOLIO_DATA = {
             allTags: ["Python", "Flask", "Scikit-learn", "MLP", "Pandas", "pickle", "joblib", "HTML", "CSS", "JavaScript"],
 
             images: [
-                // "assets/images/projects/mldiag-1.jpg",
+                // "assets/images/mldiag-1.jpg",
             ],
             video: null,
 
@@ -332,7 +332,7 @@ window.PORTFOLIO_DATA = {
             meta: "Sept. – Nov. 2025 · Esprit (Académique)",
             shortDesc: "Data Warehouse Power BI sur l'assurance automobile tunisienne : 3 KPIs stratégiques, modèle en étoile, 1 167 assurés, analyses cartographiques.",
             cardTags: ["Power BI", "Power Query", "DAX", "Data Warehouse"],
-            cover: "assets/images/projects/placeholder-cover.svg",
+            cover: "assets/images/placeholder-cover.svg",
 
             fullDesc:
                 "Système de Business Intelligence sur données d'assurance automobile tunisienne. " +
@@ -349,8 +349,8 @@ window.PORTFOLIO_DATA = {
             allTags: ["Power BI", "Power Query", "DAX", "Data Warehouse", "Modèle en étoile", "KPI", "Business Intelligence"],
 
             images: [
-                // "assets/images/projects/powerbi-1.jpg",
-                // "assets/images/projects/powerbi-2.jpg",
+                // "assets/images/powerbi-1.jpg",
+                // "assets/images/powerbi-2.jpg",
             ],
             video: null,
 
@@ -371,7 +371,7 @@ window.PORTFOLIO_DATA = {
             meta: "Mars 2024 – Sept. 2024 · Scale IT, Paris (Remote)",
             shortDesc: "Système RAG (LLM + recherche sémantique) réduisant le temps de recherche de 40%. Fine-tuning de bi-encodeurs, pipelines d'évaluation et dashboards Streamlit.",
             cardTags: ["RAG", "LLM", "Sentence-BERT", "Streamlit", "Python"],
-            cover: "assets/images/projects/placeholder-cover.svg",
+            cover: "assets/images/placeholder-cover.svg",
 
             fullDesc:
                 "Développement d'un système de recherche documentaire augmenté par LLM (RAG) lors du stage PFE chez Scale IT (Paris). " +
@@ -405,7 +405,7 @@ window.PORTFOLIO_DATA = {
             meta: "Juin 2025 – Sept. 2025 · Direct Emploi, Paris (Remote)",
             shortDesc: "Automatisation de flux XML/ATS pour 50+ employeurs, web crawling concurrentiel et co-construction de 2 moteurs de recherche en production.",
             cardTags: ["XML/ATS", "Web Crawling", "SEMrush", "SEO", "Python"],
-            cover: "assets/images/projects/placeholder-cover.svg",
+            cover: "assets/images/placeholder-cover.svg",
 
             fullDesc:
                 "Stage PFE chez Direct Emploi (jobboard DirectEmploi.com, Paris). Missions d'automatisation des flux de données " +
