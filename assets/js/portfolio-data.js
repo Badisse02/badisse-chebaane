@@ -201,8 +201,8 @@ window.PORTFOLIO_DATA = {
             ],
             // video: URL YouTube (recommandé) ou chemin local
             // ⚠️  La vidéo locale (129 MB) dépasse la limite GitHub — uploade sur YouTube puis colle l'URL ici
-            // ex : video: "https://www.youtube.com/watch?v=XXXXXXXXX"
-            video: null,
+            video: "https://youtu.be/VILYgJz282Y",
+            // video: null,
 
             // — Liens —
             github: "https://github.com/syrineguemira72/Esprit-PIDS-4DS3-2026--ARADHI-",
