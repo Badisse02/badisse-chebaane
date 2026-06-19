@@ -1,1 +1,8 @@
 .idea/
+
+# Large video files — host on YouTube instead
+assets/video/
+*.mp4
+*.mov
+*.avi
+*.mkv

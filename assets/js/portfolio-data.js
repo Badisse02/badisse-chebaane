@@ -199,10 +199,10 @@ window.PORTFOLIO_DATA = {
 
                 // "assets/images/aradhi-3.jpg",
             ],
-            // video: URL YouTube/Vimeo OU chemin local .mp4
-            // ex YouTube : "https://www.youtube.com/watch?v=XXXXXXXXX"
-            // ex local   : "assets/videos/aradhi-demo.mp4"
-            video: ["assets/video/aradhi_demo.mp4"],
+            // video: URL YouTube (recommandé) ou chemin local
+            // ⚠️  La vidéo locale (129 MB) dépasse la limite GitHub — uploade sur YouTube puis colle l'URL ici
+            // ex : video: "https://www.youtube.com/watch?v=XXXXXXXXX"
+            video: null,
 
             // — Liens —
             github: "https://github.com/syrineguemira72/Esprit-PIDS-4DS3-2026--ARADHI-",
