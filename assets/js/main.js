@@ -7,8 +7,8 @@
    ========================================================= */
 
 /* ─── THEME TOGGLE ──────────────────────────────────────── */
-const html          = document.documentElement;
-const themeToggle   = document.getElementById('themeToggle');
+const html = document.documentElement;
+const themeToggle = document.getElementById('themeToggle');
 
 function applyTheme(theme) {
   html.setAttribute('data-theme', theme);
@@ -28,7 +28,7 @@ window.addEventListener('scroll', () => {
 
 /* ─── MOBILE MENU ───────────────────────────────────────── */
 const menuToggle = document.getElementById('menuToggle');
-const navLinks   = document.getElementById('navLinks');
+const navLinks = document.getElementById('navLinks');
 
 menuToggle?.addEventListener('click', () => {
   const open = navLinks.classList.toggle('open');
@@ -70,7 +70,7 @@ function typeLoop() {
   typedEl.textContent = deleting ? current.slice(0, charIdx--) : current.slice(0, charIdx++);
   let delay = deleting ? 50 : 90;
   if (!deleting && charIdx > current.length) { delay = 1800; deleting = true; }
-  if (deleting && charIdx < 0)              { delay = 400;  deleting = false; roleIdx = (roleIdx + 1) % roles.length; }
+  if (deleting && charIdx < 0) { delay = 400; deleting = false; roleIdx = (roleIdx + 1) % roles.length; }
   setTimeout(typeLoop, delay);
 }
 typeLoop();
@@ -123,7 +123,7 @@ function initReveal() {
    ═══════════════════════════════════════════════════════════ */
 
 function renderProjects() {
-  const grid     = document.getElementById('projectsGrid');
+  const grid = document.getElementById('projectsGrid');
   const projects = window.PORTFOLIO_DATA?.projects;
   if (!grid || !projects?.length) return;
 
@@ -191,16 +191,15 @@ document.getElementById('filterBar')?.addEventListener('click', e => {
 
 const modalOverlay = document.getElementById('modalOverlay');
 const modalContent = document.getElementById('modalContent');
-const modalClose   = document.getElementById('modalClose');
+const modalClose = document.getElementById('modalClose');
 
 function openModal(projectId) {
   // Cherche le projet par son id dans PORTFOLIO_DATA
   const p = window.PORTFOLIO_DATA?.projects?.find(proj => proj.id === projectId);
   if (!p) { console.warn('Projet introuvable :', projectId); return; }
 
-  /* ── Bloc média principal (vidéo prioritaire, sinon 1ère image) ── */
+  /* ── Bloc média principal (vidéo uniquement) ── */
   let heroHtml = '';
-  const remainingImages = [...(p.images || [])];   // copie pour ne pas muter les données
 
   if (p.video) {
     if (p.video.includes('youtube.com') || p.video.includes('youtu.be')) {
@@ -229,23 +228,22 @@ function openModal(projectId) {
         <video controls src="${p.video}"></video>
       </div>`;
     }
-
-  } else if (remainingImages.length > 0) {
-    // Première image en héro, les suivantes en galerie
-    const cover = remainingImages.shift();
-    heroHtml = `<div class="modal-hero">
-      <img src="${cover}" alt="${p.title}" loading="lazy" />
-    </div>`;
   }
 
-  /* ── Galerie (images restantes après le héro) ── */
+  /* ── Galerie (Toutes les images) ── */
   let galleryHtml = '';
-  if (remainingImages.length > 0) {
+  if (p.images && p.images.length > 0) {
     galleryHtml = `
       <div class="modal-section">
         <h4>Galerie</h4>
         <div class="modal-gallery">
-          ${remainingImages.map(img => `<img src="${img}" alt="${p.title}" loading="lazy" />`).join('')}
+          ${p.images.map(img => `
+            <div class="gallery-item" data-src="${img}">
+              <img src="${img}" alt="${p.title}" loading="lazy" />
+              <div class="gallery-item-overlay">
+                <i class="fa-solid fa-magnifying-glass-plus"></i>
+              </div>
+            </div>`).join('')}
         </div>
       </div>`;
   }
@@ -258,7 +256,7 @@ function openModal(projectId) {
   /* ── Liens GitHub / Demo ── */
   let linksHtml = '';
   if (p.github) linksHtml += `<a href="${p.github}" target="_blank" rel="noopener" class="btn btn-outline btn-sm"><i class="fa-brands fa-github"></i> Code</a>`;
-  if (p.demo)   linksHtml += `<a href="${p.demo}"   target="_blank" rel="noopener" class="btn btn-primary btn-sm"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo</a>`;
+  if (p.demo) linksHtml += `<a href="${p.demo}"   target="_blank" rel="noopener" class="btn btn-primary btn-sm"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo</a>`;
 
   /* ── Points clés (highlights) ── */
   const highlights = (p.highlights || []).map(h => `<li>${h}</li>`).join('');
@@ -266,7 +264,7 @@ function openModal(projectId) {
   /* ── Contexte + équipe (si renseignés) ── */
   let metaExtra = '';
   if (p.contexte) metaExtra += `<span><i class="fa-solid fa-tag"></i> ${p.contexte}</span>`;
-  if (p.equipe)   metaExtra += `<span><i class="fa-solid fa-people-group"></i> ${p.equipe}</span>`;
+  if (p.equipe) metaExtra += `<br><span><i class="fa-solid fa-people-group"></i> ${p.equipe}</span>`;
 
   /* ── Injection dans le DOM ── */
   modalContent.innerHTML = `
@@ -315,7 +313,42 @@ document.getElementById('projectsGrid')?.addEventListener('click', e => {
 
 modalClose?.addEventListener('click', closeModal);
 modalOverlay?.addEventListener('click', e => { if (e.target === modalOverlay) closeModal(); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+/* ─── LIGHTBOX MODAL ────────────────────────────────────── */
+const lightboxOverlay = document.getElementById('lightboxOverlay');
+const lightboxImg = document.getElementById('lightboxImg');
+const lightboxClose = document.getElementById('lightboxClose');
+
+function openLightbox(src) {
+  if (!lightboxOverlay || !lightboxImg) return;
+  lightboxImg.src = src;
+  lightboxOverlay.classList.add('open');
+}
+
+function closeLightbox() {
+  if (!lightboxOverlay) return;
+  lightboxOverlay.classList.remove('open');
+  setTimeout(() => {
+    if (lightboxImg) lightboxImg.src = '';
+  }, 300);
+}
+
+lightboxClose?.addEventListener('click', closeLightbox);
+lightboxOverlay?.addEventListener('click', e => {
+  if (e.target === lightboxOverlay || e.target.closest('.lightbox-img-wrapper') === e.target) closeLightbox();
+});
+
+/* Délégation pour l'ouverture de la lightbox depuis la galerie */
+modalContent?.addEventListener('click', e => {
+  const item = e.target.closest('.gallery-item');
+  if (item && item.dataset.src) openLightbox(item.dataset.src);
+});
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    if (lightboxOverlay?.classList.contains('open')) closeLightbox();
+    else closeModal();
+  }
+});
 
 /* ─── BACK TO TOP ───────────────────────────────────────── */
 const backToTop = document.getElementById('backToTop');
@@ -339,19 +372,19 @@ function updateAboutStats() {
 
   // Valeurs calculées automatiquement
   const computed = {
-    stage:  data.experiences?.length  ?? 0,
-    projet: data.projects?.length     ?? 0,
-    langue: data.languages?.length    ?? 0,
+    stage: data.experiences?.length ?? 0,
+    projet: data.projects?.length ?? 0,
+    langue: data.languages?.length ?? 0,
   };
 
   document.querySelectorAll('.stat').forEach(stat => {
-    const label  = (stat.querySelector('.stat-label')?.textContent || '').toLowerCase();
-    const numEl  = stat.querySelector('.stat-num[data-count]');
+    const label = (stat.querySelector('.stat-label')?.textContent || '').toLowerCase();
+    const numEl = stat.querySelector('.stat-num[data-count]');
     if (!numEl) return;
 
-    if (label.includes('stage'))   numEl.dataset.count = computed.stage;
-    if (label.includes('projet'))  numEl.dataset.count = computed.projet;
-    if (label.includes('langue'))  numEl.dataset.count = computed.langue;
+    if (label.includes('stage')) numEl.dataset.count = computed.stage;
+    if (label.includes('projet')) numEl.dataset.count = computed.projet;
+    if (label.includes('langue')) numEl.dataset.count = computed.langue;
   });
 }
 
@@ -360,12 +393,12 @@ function updateAboutStats() {
    ═══════════════════════════════════════════════════════════ */
 
 const contactForm = document.getElementById('contactForm');
-const submitBtn   = document.getElementById('submitBtn');
-const formToast   = document.getElementById('formToast');
-const toastClose  = document.getElementById('toastClose');
-const toastTitle  = document.getElementById('toastTitle');
-const toastMsg    = document.getElementById('toastMessage');
-const toastIcon   = formToast?.querySelector('.toast-icon i');
+const submitBtn = document.getElementById('submitBtn');
+const formToast = document.getElementById('formToast');
+const toastClose = document.getElementById('toastClose');
+const toastTitle = document.getElementById('toastTitle');
+const toastMsg = document.getElementById('toastMessage');
+const toastIcon = formToast?.querySelector('.toast-icon i');
 
 let toastTimer = null;
 
@@ -378,8 +411,8 @@ function showToast(type, title, message) {
 
   // Update content
   toastTitle.textContent = title;
-  toastMsg.textContent   = message;
-  toastIcon.className    = type === 'success'
+  toastMsg.textContent = message;
+  toastIcon.className = type === 'success'
     ? 'fa-solid fa-check'
     : 'fa-solid fa-triangle-exclamation';
 

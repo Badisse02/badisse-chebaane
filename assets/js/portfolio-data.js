@@ -196,6 +196,7 @@ window.PORTFOLIO_DATA = {
             // ex: ["assets/images/aradhi-1.jpg", "assets/images/aradhi-2.jpg"]
             images: [
                 "assets/images/aradhi_menu.png",
+                "assets/images/aradhi2.png"
 
                 // "assets/images/aradhi-3.jpg",
             ],
@@ -210,44 +211,128 @@ window.PORTFOLIO_DATA = {
 
             // — Chatbot —
             contexte: "Académique-Professionnel — Projet PIDEV 4ème année Esprit, en collaboration avec l'entreprise Value",
-            equipe: "6 personnes (Badisse Chebaane, Syrine Guemira, Ryhab Ben Hadj Slimen, Ghofrane Jmai, Neirouz Hannachi, Khaled ElAbed)",
+            equipe: "6 personnes",
         },
 
-        // ── 2. AI AGENT (AI Switch) ────────────────────────────
         {
-            id: "aiagent",
+            id: "mldiag",
             category: "ml",
-            featured: false,
+            featured: true,
 
-            title: "AI Agent — Plateforme Multi-LLMs",
-            meta: "2024 · AI Switch (France)",
-            shortDesc: "Interface Streamlit unifiée pour switcher entre GPT-3, Mistral-7B, Llama-3 et RAG — développée pour la société française AI Switch.",
-            cardTags: ["Streamlit", "GPT-3", "Mistral-7B", "Llama-3", "RAG"],
-            cover: "assets/images/aiagent-cover.svg",
+            title: "PinkCare — Diagnostic Assisté du Cancer du Sein",
+            meta: "Projet académique · Esprit School of Engineering",
+            shortDesc: "Plateforme web de détection précoce du cancer du sein : modèle MLP (97,6% accuracy) entraîné sur le dataset Wisconsin, espace patient et espace médecin, chatbot IA intégré.",
+            cardTags: ["Flask", "Scikit-learn", "MLP", "Python", "Chatbot IA"],
+            cover: "assets/images/pinkcare-cover.svg",
 
             fullDesc:
-                "Mission professionnelle pour la société française AI Switch : développement de l'interface utilisateur " +
-                "d'une plateforme conversationnelle multi-LLMs (type ChatGPT) intégrant des modèles open-source et propriétaires depuis un dashboard unique.",
+                "PinkCare est une plateforme web d'aide au diagnostic du cancer du sein, développée en suivant la méthodologie " +
+                "CRISP-DM sur le dataset Wisconsin Breast Cancer. Le projet répond à un enjeu de santé majeur — 1 femme sur 8 " +
+                "touchée au cours de sa vie, 90% de survie à 5 ans en cas de détection précoce — en combinant un modèle de " +
+                "classification performant à une interface accessible pour les patientes comme pour les médecins.",
             highlights: [
-                "Interface Streamlit complète permettant de switcher entre plusieurs LLMs depuis un seul dashboard",
-                "Intégration de modèles open-source (Mistral-7B, Llama-3) et propriétaires (GPT-3) dans une architecture unifiée",
-                "Module RAG intégré pour la recherche documentaire augmentée",
-                "Équipe pluridisciplinaire : 2 ingénieurs Masters IA/ML, 1 stagiaire ingénieur, 1 manager produit (maquettes & livraisons), moi (UI Streamlit)",
-                "Processus de livraison contrôlé : maquettes validées par la manager avant chaque intégration",
+                "Nettoyage et préparation des données : encodage des variables catégorielles, traitement des outliers par IQR",
+                "Comparaison de plusieurs modèles (MLP, ANN, SVM, AdaBoost, GRU) avec tuning des hyperparamètres",
+                "Modèle MLP Classifier retenu : Accuracy 97,66%, AUC-ROC 0,999, F1-score 0,968",
+                "Espace Médecin avec deux modes : Assistant IA Chatbot (PinkBot) ou Diagnostic Avancé (saisie des 24 caractéristiques cliniques)",
+                "Espace Patient dédié : questionnaire guidé, analyse IA en moins de 30 secondes, résultats vulgarisés",
+                "Chatbot conversationnel PinkBot pour expliquer le modèle, interpréter les résultats et répondre aux questions médicales",
             ],
-            allTags: ["Python", "Streamlit", "GPT-3", "Mistral-7B", "Llama-3", "RAG", "LLM", "OpenAI API"],
+            allTags: ["Python", "Flask", "Scikit-learn", "MLP", "Pandas", "NumPy", "HTML", "CSS", "JavaScript", "CRISP-DM"],
 
             images: [
-                // "assets/images/aiagent-1.jpg",
+                "assets/images/pink1.png",
+                "assets/images/pink2.png",
+                "assets/images/pink3.png",
+                "assets/images/pink4.png",
+                "assets/images/pink5.png",
+            ],
+            video: null, // possibilité d'intégrer la vidéo commerciale (Steve AI) ici
+
+            github: "https://github.com/Badisse02",
+            demo: null,
+
+            contexte: "Académique — Octobre Rose, Diagnostic Précoce du Cancer du Sein, Esprit School of Engineering",
+            equipe: "Projet de groupe (6 membres)",
+        },
+
+        {
+            id: "powerbi",
+            category: "data",
+            featured: false,
+
+            title: "BI Assurance Auto — Dashboard Power BI",
+            meta: "Sept. – Nov. 2025 · Esprit (Académique)",
+            shortDesc: "Data Warehouse Power BI sur l'assurance automobile tunisienne : 3 KPIs stratégiques, modèle en étoile, 1 167 assurés, analyses cartographiques.",
+            cardTags: ["Power BI", "Power Query", "DAX", "Data Warehouse"],
+            cover: "assets/images/Power-BI-Microsoft-logo.png",
+
+            fullDesc:
+                "Système de Business Intelligence sur données d'assurance automobile tunisienne. " +
+                "Modélisation d'un Data Warehouse, nettoyage Power Query, et développement de 3 KPIs stratégiques " +
+                "pour piloter le portefeuille d'assurance.",
+            highlights: [
+                "Data Warehouse en étoile : Sinistre, Assuré, Police, Véhicule, RegionPostal, CompagniesAdverses",
+                "Nettoyage Power Query : doublons, valeurs manquantes, typage, colonne BonusMalus (1-12), table RegionPostal",
+                "KPI 1 : Évolution bonus-malus par profil conducteur + taux de responsabilité (3 catégories)",
+                "KPI 2 : Volume sinistres par marque véhicule et région/code postal avec filtre période (32K sinistres, 56K actifs)",
+                "KPI 3 : Concentration parc par énergie (essence/gasoil), puissance fiscale, dynamique d'ajout véhicules",
+                "Visualisations cartographiques par gouvernorat tunisien — 1 167 assurés, BonusMalus moyen = 6",
+            ],
+            allTags: ["Power BI", "Power Query", "DAX", "Data Warehouse", "Modèle en étoile", "KPI", "Business Intelligence"],
+
+            images: [
+                "assets/images/bi1.png",
+                "assets/images/bi2.png",
+                "assets/images/bi3.png",
+                "assets/images/bi4.png",
+                "assets/images/bi5.png",
             ],
             video: null,
 
             github: null,
             demo: null,
 
-            contexte: "Professionnel — Mission pour AI Switch (société française)",
-            equipe: "5 personnes (2 ingénieurs Masters IA/ML, 1 stagiaire ingénieur, 1 manager produit, Badisse — UI)",
+            contexte: "Académique — Cours Informatique Décisionnelle, Esprit",
+            equipe: "6 personnes",
         },
+
+        {
+            id: "directemploi",
+            category: "pro",
+            featured: false,
+
+            title: "Direct Emploi — Automatisation & SEO",
+            meta: "Juin 2025 – Sept. 2025 · Direct Emploi, Paris (Remote)",
+            shortDesc: "Automatisation de flux XML/ATS pour 50+ employeurs, web crawling concurrentiel et co-construction de 2 moteurs de recherche en production.",
+            cardTags: ["XML/ATS", "Web Crawling", "SEMrush", "SEO", "Python"],
+            cover: "assets/images/directemploi.png",
+
+            fullDesc:
+                "Stage d'été en 2025 chez Direct Emploi (jobboard DirectEmploi.com, Paris). Missions d'automatisation des flux de données " +
+                "employeurs, web crawling et développement de nouveaux moteurs de recherche.",
+            highlights: [
+                "Automatisation de l'ingestion de flux XML/ATS pour 50+ comptes employeurs → traitement manuel -35%",
+                "Stratégie de web crawling ciblée : 1 000+ offres concurrentes identifiées pour l'onboarding de nouvelles entreprises",
+                "Audits SEMrush + co-développement de 2 moteurs de recherche en production (Formation Continue & Franchise) → contenu indexé +40%",
+            ],
+            allTags: ["XML", "ATS", "Web Crawling", "SEMrush", "SEO", "Python", "Scripts"],
+
+            images: ["assets/images/directemploi1.png",
+                "assets/images/directemploi2.png",
+                "assets/images/directemploi3.png",
+            ],
+            video: null,
+
+            github: null,
+            demo: null,
+
+            contexte: "Stage d'été — Direct Emploi, Paris, France (Remote)",
+            equipe: "Équipe technique Direct Emploi",
+        },
+
+        // ── 2. AI AGENT (AI Switch) ────────────────────────────
+
 
         // ── 3. EVART ──────────────────────────────────────────
         {
@@ -283,85 +368,46 @@ window.PORTFOLIO_DATA = {
             demo: null,
 
             contexte: "Académique — Esprit School of Engineering, 3ème année",
-            equipe: "Équipe Esprit",
+            equipe: "6 étudiants",
         },
 
-        // ── 4. DIAGNOSTIC ML ──────────────────────────────────
         {
-            id: "mldiag",
+            id: "aiagent",
             category: "ml",
             featured: false,
 
-            title: "Diagnostic Médical — ML Web App",
-            meta: "Oct. – Déc. 2025 · Esprit (Académique)",
-            shortDesc: "Application Flask avec deux parcours (patient/médecin), diagnostic par modèle MLP scikit-learn et chatbot conversationnel intégré.",
-            cardTags: ["Flask", "Scikit-learn", "MLP", "Python", "Chatbot"],
-            cover: "assets/images/placeholder-cover.svg",
+            title: "AI Agent — Plateforme Multi-LLMs",
+            meta: "2024 · AI Switch (France)",
+            shortDesc: "Interface Streamlit unifiée pour switcher entre GPT-3, Mistral-7B, Llama-3 et RAG — développée pour la société française AI Switch.",
+            cardTags: ["Streamlit", "GPT-3", "Mistral-7B", "Llama-3", "RAG"],
+            cover: "assets/images/aiswitch.png",
 
             fullDesc:
-                "Application web Flask proposant deux parcours distincts (patient et médecin) avec un diagnostic médical " +
-                "basé sur un modèle MLP scikit-learn et un chatbot intégré pour le suivi conversationnel.",
+                "Mission professionnelle pour la société française AI Switch : développement de l'interface utilisateur " +
+                "d'une plateforme conversationnelle multi-LLMs (type ChatGPT) intégrant des modèles open-source et propriétaires depuis un dashboard unique.",
             highlights: [
-                "Parcours patient : collecte des informations + affichage du résultat de diagnostic",
-                "Parcours médecin : choix du mode + diagnostic détaillé + chatbot conversationnel",
-                "Pipeline d'inférence : features.pkl → scaler.pkl (StandardScaler) → mlp_model.pkl",
-                "Historique conversationnel persisté en JSON (chat_history.json)",
-                "Architecture Flask modulaire avec templates Jinja2 et assets statiques (CSS/JS)",
+                "Interface Streamlit complète permettant de switcher entre plusieurs LLMs depuis un seul dashboard",
+                "Intégration de modèles open-source (Mistral-7B, Llama-3) et propriétaires (GPT-3) dans une architecture unifiée",
+                "Module RAG intégré pour la recherche documentaire augmentée",
+                "Équipe pluridisciplinaire : 2 ingénieurs Masters IA/ML, 1 stagiaire ingénieur, 1 manager produit (maquettes & livraisons), moi (UI Streamlit)",
+                "Processus de livraison contrôlé : maquettes validées par la manager avant chaque intégration",
             ],
-            allTags: ["Python", "Flask", "Scikit-learn", "MLP", "Pandas", "pickle", "joblib", "HTML", "CSS", "JavaScript"],
+            allTags: ["Python", "Streamlit", "GPT-3", "Mistral-7B", "Llama-3", "RAG", "LLM", "OpenAI API"],
 
             images: [
-                // "assets/images/mldiag-1.jpg",
-            ],
-            video: null,
+                "assets/images/aiagent1.png",
+                "assets/images/aiagent2.png",
 
-            github: "https://github.com/Badisse02",
-            demo: null,
-
-            contexte: "Académique — Projet ML, Esprit School of Engineering",
-            equipe: "Projet académique",
-        },
-
-        // ── 5. POWER BI — ASSURANCE ───────────────────────────
-        {
-            id: "powerbi",
-            category: "data",
-            featured: false,
-
-            title: "BI Assurance Auto — Dashboard Power BI",
-            meta: "Sept. – Nov. 2025 · Esprit (Académique)",
-            shortDesc: "Data Warehouse Power BI sur l'assurance automobile tunisienne : 3 KPIs stratégiques, modèle en étoile, 1 167 assurés, analyses cartographiques.",
-            cardTags: ["Power BI", "Power Query", "DAX", "Data Warehouse"],
-            cover: "assets/images/placeholder-cover.svg",
-
-            fullDesc:
-                "Système de Business Intelligence sur données d'assurance automobile tunisienne. " +
-                "Modélisation d'un Data Warehouse, nettoyage Power Query, et développement de 3 KPIs stratégiques " +
-                "pour piloter le portefeuille d'assurance.",
-            highlights: [
-                "Data Warehouse en étoile : Sinistre, Assuré, Police, Véhicule, RegionPostal, CompagniesAdverses",
-                "Nettoyage Power Query : doublons, valeurs manquantes, typage, colonne BonusMalus (1-12), table RegionPostal",
-                "KPI 1 : Évolution bonus-malus par profil conducteur + taux de responsabilité (3 catégories)",
-                "KPI 2 : Volume sinistres par marque véhicule et région/code postal avec filtre période (32K sinistres, 56K actifs)",
-                "KPI 3 : Concentration parc par énergie (essence/gasoil), puissance fiscale, dynamique d'ajout véhicules",
-                "Visualisations cartographiques par gouvernorat tunisien — 1 167 assurés, BonusMalus moyen = 6",
-            ],
-            allTags: ["Power BI", "Power Query", "DAX", "Data Warehouse", "Modèle en étoile", "KPI", "Business Intelligence"],
-
-            images: [
-                // "assets/images/powerbi-1.jpg",
-                // "assets/images/powerbi-2.jpg",
             ],
             video: null,
 
             github: null,
             demo: null,
 
-            contexte: "Académique — Cours Informatique Décisionnelle, Esprit",
-            equipe: "6 personnes (Chebaane Badisse, Syrine Guemira, Neirouz Hannachi, Khaled Abed, Ryhab Belhaj Slimen, Ghofrane Jmai)",
+            contexte: "Professionnel — Mission pour AI Switch (société française)",
+            equipe: "5 personnes (2 ingénieurs Masters IA/ML, 2 stagiaires ingénieur, 1 manager produit)",
         },
 
-        // ── 6. SCALE IT — RAG ─────────────────────────────────
         {
             id: "scaleit",
             category: "pro",
@@ -371,7 +417,7 @@ window.PORTFOLIO_DATA = {
             meta: "Mars 2024 – Sept. 2024 · Scale IT, Paris (Remote)",
             shortDesc: "Système RAG (LLM + recherche sémantique) réduisant le temps de recherche de 40%. Fine-tuning de bi-encodeurs, pipelines d'évaluation et dashboards Streamlit.",
             cardTags: ["RAG", "LLM", "Sentence-BERT", "Streamlit", "Python"],
-            cover: "assets/images/placeholder-cover.svg",
+            cover: "assets/images/sugi1.png",
 
             fullDesc:
                 "Développement d'un système de recherche documentaire augmenté par LLM (RAG) lors du stage PFE chez Scale IT (Paris). " +
@@ -385,7 +431,9 @@ window.PORTFOLIO_DATA = {
             ],
             allTags: ["Python", "RAG", "LLM", "Semantic Search", "Sentence-Transformers", "Streamlit", "Scikit-learn", "MRR", "Precision", "Recall"],
 
-            images: [],
+            images: ["assets/images/sugi1.png",
+                "assets/images/sugi2.png"
+            ],
             video: null,
 
             github: null,
@@ -396,36 +444,7 @@ window.PORTFOLIO_DATA = {
         },
 
         // ── 7. DIRECT EMPLOI ──────────────────────────────────
-        {
-            id: "directemploi",
-            category: "pro",
-            featured: false,
 
-            title: "Direct Emploi — Automatisation & SEO",
-            meta: "Juin 2025 – Sept. 2025 · Direct Emploi, Paris (Remote)",
-            shortDesc: "Automatisation de flux XML/ATS pour 50+ employeurs, web crawling concurrentiel et co-construction de 2 moteurs de recherche en production.",
-            cardTags: ["XML/ATS", "Web Crawling", "SEMrush", "SEO", "Python"],
-            cover: "assets/images/placeholder-cover.svg",
-
-            fullDesc:
-                "Stage PFE chez Direct Emploi (jobboard DirectEmploi.com, Paris). Missions d'automatisation des flux de données " +
-                "employeurs, web crawling et développement de nouveaux moteurs de recherche.",
-            highlights: [
-                "Automatisation de l'ingestion de flux XML/ATS pour 50+ comptes employeurs → traitement manuel -35%",
-                "Stratégie de web crawling ciblée : 1 000+ offres concurrentes identifiées pour l'onboarding de nouvelles entreprises",
-                "Audits SEMrush + co-développement de 2 moteurs de recherche en production (Formation Continue & Franchise) → contenu indexé +40%",
-            ],
-            allTags: ["XML", "ATS", "Web Crawling", "SEMrush", "SEO", "Python", "Scripts"],
-
-            images: [],
-            video: null,
-
-            github: null,
-            demo: null,
-
-            contexte: "Stage PFE — Direct Emploi, Paris, France (Remote)",
-            equipe: "Équipe technique Direct Emploi",
-        },
 
     ], // ← fin du tableau projects[]
 
